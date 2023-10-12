@@ -1,9 +1,10 @@
 .DEFINE
 tabla1 0000H;
 tabla2 0100H;
+tabla3 0200H;
 
 .DATA 0000H
-db 10H, 20H, 05H;
+db 10H, 20H, 05H, 4H;
 
 .ORG 1000H
 
@@ -79,4 +80,42 @@ ORDENAR_MENOR_MAYOR:
 		JMP ORDENAR_MENOR_MAYOR;
 
 SUMAR_MEMORIA:
+
+LXI H, tabla1;
+LXI D, tabla2;
+LXI B, tabla3;
+
+PUSH H;
+
+SUMAR:
+
+	INX D;
+
+	POP H;
+
+	MOV A, M;
+	INR A;
+	DCR A;
+		JZ STOP;
+
+	INX H;
+
+	PUSH H;
+
+	MOV H, D;
+	MOV L, E;
+
+	ADD M;
+
+	MOV H, B;
+	MOV L, C;
+
+	MOV M, A;
+	INX B;
+
+JMP SUMAR;
+
+STOP:
+
+
 HLT
