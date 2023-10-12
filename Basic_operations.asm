@@ -89,8 +89,6 @@ PUSH H;
 
 SUMAR:
 
-	INX D;
-
 	POP H;
 
 	MOV A, M;
@@ -112,6 +110,7 @@ SUMAR:
 
 	MOV M, A;
 	INX B;
+	INX D;
 
 JMP SUMAR;
 
