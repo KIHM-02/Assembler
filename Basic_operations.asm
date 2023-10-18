@@ -2,9 +2,10 @@
 tabla1 0000H;
 tabla2 0100H;
 tabla3 0200H;
+tabla4 0300H;
 
 .DATA 0000H
-db 10H, 20H, 05H, 4H;
+db 10H, 20H, 25H, 4H, 2H, 0FH;;
 
 .ORG 1000H
 
@@ -94,7 +95,7 @@ SUMAR:
 	MOV A, M;
 	INR A;
 	DCR A;
-		JZ STOP;
+		JZ STOP_suma;
 
 	INX H;
 
@@ -114,7 +115,41 @@ SUMAR:
 
 JMP SUMAR;
 
-STOP:
+STOP_suma:
 
+
+LXI H, tabla1;
+LXI D, tabla2;
+LXI B, tabla4;
+
+PUSH H;
+
+RESTA:
+	POP H;
+
+	MOV A, M;
+	INR A;
+	DCR A;
+		JZ STOP_resta;
+
+	INX H;
+
+	PUSH H;
+
+	MOV H, D;
+	MOV L, E;
+
+	SUB M;
+
+	MOV H, B;
+	MOV L, C;
+
+	MOV M, A;
+	INX B;
+	INX D;
+
+JMP RESTA;
+
+STOP_resta:
 
 HLT
